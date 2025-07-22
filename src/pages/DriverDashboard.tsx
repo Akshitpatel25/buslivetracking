@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useWebSocket  from 'react-use-websocket';
 import MapView from '../component/Map';
 
@@ -12,7 +12,7 @@ export default function DriverDashboard() {
   const [location, setLocation] = useState<Location>({ lat: 0, lng: 0 });
 
   // WebSocket URL and options (you can specify options like automatic reconnection, etc.)
-  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl, {
+  const { sendMessage} = useWebSocket(socketUrl, {
     onOpen: () => {
       console.log('WebSocket connection opened');
     },
@@ -24,7 +24,7 @@ export default function DriverDashboard() {
       const data = JSON.parse(message.data);
       setLocation({ lat: data.lat, lng: data.lng });
     },
-    shouldReconnect: (closeEvent: CloseEvent) => true, // Reconnect automatically on disconnect
+    // shouldReconnect: (closeEvent: CloseEvent) => true, // Reconnect automatically on disconnect
   });
 
   // Function to send location at regular intervals (every 2 seconds)

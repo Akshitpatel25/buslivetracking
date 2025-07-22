@@ -20,6 +20,7 @@ export default function Signup() {
             placeholder="Name"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={(e) => setName(e.target.value)}
+            value={name}
           />
 
           <input
@@ -27,6 +28,7 @@ export default function Signup() {
             placeholder="Email"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
 
           <input
@@ -34,6 +36,7 @@ export default function Signup() {
             placeholder="Password"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
 
           <button

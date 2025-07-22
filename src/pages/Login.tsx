@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}:${import.meta.env.VITE_SERVER_PORT}`;
 export default function Login() {
