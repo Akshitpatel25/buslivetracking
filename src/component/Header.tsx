@@ -15,39 +15,39 @@ export default function Header() {
     avatarUrl: "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png", 
   };
 
-  useEffect(() => {
-    async function handleTokenCheck() {
-      const res = await fetch(`${SERVER_URI}/api/token`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (res.status != 200) {
-        localStorage.removeItem("email");
-        localStorage.removeItem("driverEmail");
-        const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (logoutRes.status == 200) {
-          navigate("/login");
-        }
-      } else {
-        const email =
-          localStorage.getItem("email") || localStorage.getItem("driverEmail");
-        if (email) {
-          setIsLoggedIn(true);
-        }
-      }
-    }
+  // useEffect(() => {
+  //   async function handleTokenCheck() {
+  //     const res = await fetch(`${SERVER_URI}/api/token`, {
+  //       method: "GET",
+  //       credentials: "include",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     if (res.status != 200) {
+  //       localStorage.removeItem("email");
+  //       localStorage.removeItem("driverEmail");
+  //       const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
+  //         method: "GET",
+  //         credentials: "include",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       if (logoutRes.status == 200) {
+  //         navigate("/login");
+  //       }
+  //     } else {
+  //       const email =
+  //         localStorage.getItem("email") || localStorage.getItem("driverEmail");
+  //       if (email) {
+  //         setIsLoggedIn(true);
+  //       }
+  //     }
+  //   }
 
-    handleTokenCheck();
-  }, []);
+  //   handleTokenCheck();
+  // }, []);
 
   const handleLogout = async () => {
     const isDriver = localStorage.getItem("driverEmail");
