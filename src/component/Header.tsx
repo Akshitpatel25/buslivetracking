@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
-const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}:${import.meta.env.VITE_SERVER_PORT}`;
+const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}`;
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isloggedIn, setIsLoggedIn] = useState(false);

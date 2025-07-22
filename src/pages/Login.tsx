@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}:${import.meta.env.VITE_SERVER_PORT}`;
+// to run in local you have to add at lastin server_uri portnumber : {import.meta.env.VITE_SERVER_PORT}  
+const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}`;
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -7,7 +7,7 @@ interface Location {
   lat: number;
   lng: number;
 }
-const socketUrl = `${import.meta.env.VITE_WS_URL}:${import.meta.env.VITE_WS_PORT}`;
+const socketUrl = `${import.meta.env.VITE_WS_URL}`;
 export default function DriverDashboard() {
   const [location, setLocation] = useState<Location>({ lat: 0, lng: 0 });
 
