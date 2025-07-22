@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}:${import.meta.env.VITE_SERVER_PORT}`;
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isloggedIn, setIsLoggedIn] = useState(false);
@@ -16,7 +17,7 @@ export default function Header() {
 
   useEffect(() => {
     async function handleTokenCheck() {
-      const res = await fetch("http://localhost:3001/api/token", {
+      const res = await fetch(`${SERVER_URI}/api/token`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -26,7 +27,7 @@ export default function Header() {
       if (res.status != 200) {
         localStorage.removeItem("email");
         localStorage.removeItem("driverEmail");
-        const logoutRes = await fetch("http://localhost:3001/api/logout", {
+        const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -54,7 +55,7 @@ export default function Header() {
     if (isDriver) {
       const busNumber = localStorage.getItem("busNumber");
       try {
-        const res = await fetch("http://localhost:3001/api/driverLogout", {
+        const res = await fetch(`${SERVER_URI}/api/driverLogout`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -73,7 +74,7 @@ export default function Header() {
       }
     } else {
       try {
-        const res = await fetch("http://localhost:3001/api/logout", {
+        const res = await fetch(`${SERVER_URI}/api/logout`, {
           method: "GET",
           credentials: "include", // this is critical!
         });

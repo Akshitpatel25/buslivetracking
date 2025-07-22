@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import useWebSocket, { ReadyState } from "react-use-websocket";
 
 export default function Dashboard() {
   const [from, setFrom] = useState("");

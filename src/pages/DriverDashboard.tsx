@@ -7,12 +7,12 @@ interface Location {
   lat: number;
   lng: number;
 }
-
+const socketUrl = `${import.meta.env.VITE_WS_URL}:${import.meta.env.VITE_WS_PORT}`;
 export default function DriverDashboard() {
   const [location, setLocation] = useState<Location>({ lat: 0, lng: 0 });
 
   // WebSocket URL and options (you can specify options like automatic reconnection, etc.)
-  const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:5577', {
+  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: () => {
       console.log('WebSocket connection opened');
     },

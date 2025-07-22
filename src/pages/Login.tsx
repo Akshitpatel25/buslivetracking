@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}:${import.meta.env.VITE_SERVER_PORT}`;
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +26,7 @@ export default function Login() {
       }
 
       try {
-        const response = await fetch("http://localhost:3001/api/driverLogin", {
+        const response = await fetch(`${SERVER_URI}/api/driverLogin`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -56,7 +57,7 @@ export default function Login() {
       }
 
       try {
-        const response = await fetch("http://localhost:3001/api/login", {
+        const response = await fetch(`${SERVER_URI}/api/login`, {
           method: "POST",
           credentials: "include",
           headers: {
