@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}:${import.meta.env.VITE_SERVER_PORT}`;
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isloggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const email = localStorage.getItem("email") || localStorage.getItem("driverEmail");
 
   const user = {
@@ -89,7 +89,9 @@ export default function Header() {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setIsLoggedIn(false);
+  }, []);
 
   return (
     <header className="bg-white shadow-md">
