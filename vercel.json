@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/login",
+      "destination": "https://buslivetracking-mv2k.vercel.app/login"
+    },
+    {
+      "source": "/signup",
+      "destination": "https://buslivetracking-mv2k.vercel.app/signup"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
