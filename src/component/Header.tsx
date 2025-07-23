@@ -41,8 +41,12 @@ export default function Header() {
   };
 
   useEffect(() => {
+  const delayTokenCheck = setTimeout(() => {
     handleTokenCheck();
-  }, []);
+  }, 1000);
+
+  return () => clearTimeout(delayTokenCheck); 
+}, []);
 
   const handleLogout = async () => {
     const isDriver = localStorage.getItem("driverEmail");
