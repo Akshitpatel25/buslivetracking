@@ -16,37 +16,37 @@ export default function Header() {
       "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png",
   };
 
-  const handleTokenCheck = async () => {
-    const res = await fetch(`${SERVER_URI}/api/token`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (res.status != 200) {
-      localStorage.removeItem("email");
-      localStorage.removeItem("driverEmail");
-      const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (logoutRes.status == 200) {
-        navigate("/login");
-      }
-    }
-  };
+//   const handleTokenCheck = async () => {
+//     const res = await fetch(`${SERVER_URI}/api/token`, {
+//       method: "GET",
+//       credentials: "include",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+//     if (res.status != 200) {
+//       localStorage.removeItem("email");
+//       localStorage.removeItem("driverEmail");
+//       const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
+//         method: "GET",
+//         credentials: "include",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       });
+//       if (logoutRes.status == 200) {
+//         navigate("/login");
+//       }
+//     }
+//   };
 
-  useEffect(() => {
-  const delayTokenCheck = setTimeout(() => {
-    handleTokenCheck();
-  }, 1000);
+//   useEffect(() => {
+//   const delayTokenCheck = setTimeout(() => {
+//     handleTokenCheck();
+//   }, 1000);
 
-  return () => clearTimeout(delayTokenCheck); 
-}, []);
+//   return () => clearTimeout(delayTokenCheck); 
+// }, []);
 
   const handleLogout = async () => {
     const isDriver = localStorage.getItem("driverEmail");
