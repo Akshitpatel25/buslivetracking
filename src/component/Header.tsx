@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}`;
 export default function Header() {
@@ -8,6 +8,7 @@ export default function Header() {
   const [isloggedIn, setIsLoggedIn] = useState(false);
   // const navigate = useNavigate();
   const email = localStorage.getItem("email") || localStorage.getItem("driverEmail");
+  const navigate = useNavigate();
 
   const user = {
     name: email?.slice(0, email.indexOf("@")),
@@ -15,39 +16,39 @@ export default function Header() {
     avatarUrl: "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png", 
   };
 
-  // useEffect(() => {
-  //   async function handleTokenCheck() {
-  //     const res = await fetch(`${SERVER_URI}/api/token`, {
-  //       method: "GET",
-  //       credentials: "include",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     if (res.status != 200) {
-  //       localStorage.removeItem("email");
-  //       localStorage.removeItem("driverEmail");
-  //       const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
-  //         method: "GET",
-  //         credentials: "include",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  //       if (logoutRes.status == 200) {
-  //         navigate("/login");
-  //       }
-  //     } else {
-  //       const email =
-  //         localStorage.getItem("email") || localStorage.getItem("driverEmail");
-  //       if (email) {
-  //         setIsLoggedIn(true);
-  //       }
-  //     }
-  //   }
+  useEffect(() => {
+    async function handleTokenCheck() {
+      const res = await fetch(`${SERVER_URI}/api/token`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.status != 200) {
+        localStorage.removeItem("email");
+        localStorage.removeItem("driverEmail");
+        const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (logoutRes.status == 200) {
+          navigate("/login");
+        }
+      } else {
+        const email =
+          localStorage.getItem("email") || localStorage.getItem("driverEmail");
+        if (email) {
+          setIsLoggedIn(true);
+        }
+      }
+    }
 
-  //   handleTokenCheck();
-  // }, []);
+    handleTokenCheck();
+  }, []);
 
   const handleLogout = async () => {
     const isDriver = localStorage.getItem("driverEmail");
@@ -193,12 +194,17 @@ export default function Header() {
             >
               Option 1
             </Link> */}
-            <button
-              onClick={handleLogout}
-              className="text-red-600 hover:underline text-lg text-left"
-            >
-              {isloggedIn ? "Logout" : "Login"}
-            </button>
+            {
+              email ? (
+                <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
+                  Logout
+                </button>
+              ):(
+                <button onClick={() => navigate("/login")} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600">
+                  Login
+                </button>
+              )
+            }
           </nav>
         </div>
       </div>
