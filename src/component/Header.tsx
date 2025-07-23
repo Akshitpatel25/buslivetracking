@@ -16,8 +16,8 @@ export default function Header() {
     avatarUrl: "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png", 
   };
 
-  useEffect(() => {
-    async function handleTokenCheck() {
+  
+    const handleTokenCheck = async() => {
       const res = await fetch(`${SERVER_URI}/api/token`, {
         method: "GET",
         credentials: "include",
@@ -47,8 +47,10 @@ export default function Header() {
       }
     }
 
+  useEffect(() => {
     handleTokenCheck();
-  }, []);
+  }, [])
+  
 
   const handleLogout = async () => {
     const isDriver = localStorage.getItem("driverEmail");
@@ -90,9 +92,7 @@ export default function Header() {
     }
   };
 
-  useEffect(() => {
-    setIsLoggedIn(false);
-  }, []);
+  
 
   return (
     <header className="bg-white shadow-md">
