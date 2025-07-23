@@ -5,52 +5,44 @@ import { useNavigate } from "react-router-dom";
 const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}`;
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isloggedIn, setIsLoggedIn] = useState(false);
-  // const navigate = useNavigate();
-  const email = localStorage.getItem("email") || localStorage.getItem("driverEmail");
+  const email =
+    localStorage.getItem("email") || localStorage.getItem("driverEmail");
   const navigate = useNavigate();
 
   const user = {
     name: email?.slice(0, email.indexOf("@")),
     email: email,
-    avatarUrl: "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png", 
+    avatarUrl:
+      "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png",
   };
 
-  
-    const handleTokenCheck = async() => {
-      const res = await fetch(`${SERVER_URI}/api/token`, {
+  const handleTokenCheck = async () => {
+    const res = await fetch(`${SERVER_URI}/api/token`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.status != 200) {
+      localStorage.removeItem("email");
+      localStorage.removeItem("driverEmail");
+      const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
         method: "GET",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      if (res.status != 200) {
-        localStorage.removeItem("email");
-        localStorage.removeItem("driverEmail");
-        const logoutRes = await fetch(`${SERVER_URI}/api/logout`, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (logoutRes.status == 200) {
-          navigate("/login");
-        }
-      } else {
-        const email =
-          localStorage.getItem("email") || localStorage.getItem("driverEmail");
-        if (email) {
-          setIsLoggedIn(true);
-        }
+      if (logoutRes.status == 200) {
+        navigate("/login");
       }
     }
+  };
 
   useEffect(() => {
     handleTokenCheck();
-  }, [])
-  
+  }, []);
 
   const handleLogout = async () => {
     const isDriver = localStorage.getItem("driverEmail");
@@ -92,8 +84,6 @@ export default function Header() {
     }
   };
 
-  
-
   return (
     <header className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -106,9 +96,21 @@ export default function Header() {
           {/* <Link to="/" className="text-gray-700 hover:text-blue-600 transition">
             Option 1
           </Link> */}
-          <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
-                {isloggedIn ? "Logout" : "Login"}
-              </button>
+          {email ? (
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600"
+            >
+              Login
+            </button>
+          )}
           {/* User Profile Avatar */}
           <div className="ml-6 relative group">
             <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-lg cursor-pointer border border-blue-200">
@@ -118,7 +120,8 @@ export default function Header() {
                   alt="avatar"
                   className="w-full h-full rounded-full object-cover"
                 />
-              ) : ( ""
+              ) : (
+                ""
               )}
             </div>
             {/* Dropdown on hover */}
@@ -127,7 +130,6 @@ export default function Header() {
                 {/* <div className="font-semibold">{user.name}</div> */}
                 <div className="font-semibold text-gray-500">{user.email}</div>
               </div>
-              
             </div>
           </div>
         </nav>
@@ -177,7 +179,8 @@ export default function Header() {
                   alt="avatar"
                   className="w-full h-full rounded-full object-cover"
                 />
-              ) : (""
+              ) : (
+                ""
               )}
             </div>
             <div>
@@ -194,17 +197,21 @@ export default function Header() {
             >
               Option 1
             </Link> */}
-            {
-              email ? (
-                <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
-                  Logout
-                </button>
-              ):(
-                <button onClick={() => navigate("/login")} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600">
-                  Login
-                </button>
-              )
-            }
+            {email ? (
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600"
+              >
+                Login
+              </button>
+            )}
           </nav>
         </div>
       </div>
