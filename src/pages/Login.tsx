@@ -1,6 +1,6 @@
-import { useState } from "react";
+import {  useState } from "react";
 
-// to run in local you have to add at lastin server_uri portnumber : {import.meta.env.VITE_SERVER_PORT}  
+// to run in local you have to add at lastin server_uri portnumber : {import.meta.env.VITE_SERVER_PORT}
 const SERVER_URI = `${import.meta.env.VITE_SERVER_URI}`;
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -8,6 +8,7 @@ export default function Login() {
   const [busNumber, setBusNumber] = useState("");
   const [isDriver, setIsDriver] = useState(false);
 
+  
 
   const handleLogin = async () => {
     const emailCheck =
@@ -56,7 +57,7 @@ export default function Login() {
         alert("Please enter a valid email.");
         return;
       }
-
+      console.log(`${SERVER_URI}/api/login`);
       try {
         const response = await fetch(`${SERVER_URI}/api/login`, {
           method: "POST",
